@@ -11,6 +11,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
 
+/**
+ * @author Wendell Wu, December 2020
+ * @version 1.0.1
+ * @since 1.0.1
+ */
 public class MinecraftManhunt extends JavaPlugin implements Listener {
 
     //TODO: Handle hunter death -- give new compass upon respawn when the game is started and remove any compasses
@@ -38,7 +43,7 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
 
     /**
      * Implements:
-     * - /hunters [add|remove|clear] {username}
+     * -
      * - /runners [add|remove|clear] {username}
      * - /start
      */
@@ -50,6 +55,7 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
 
     /**
      * Handle a click by any player.
+     *
      * @param event the click event
      */
     @EventHandler()
