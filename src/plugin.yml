@@ -1,0 +1,25 @@
+# name of plugin which appears in plugin list (can be anything, not necessarily your main class name or package name)
+name: MinecraftManhunt
+version: 1.0.1
+author: Wendell Wu
+# the location of plugin startup (onEnable) and teardown (onDisable)
+main: us.wendell.MinecraftManhunt.MinecraftManhunt
+# required as of 1.13 (only include major version number)
+api-version: 1.16
+
+#tell the server that an external plugin must be loaded before your plugin can be loaded
+depend: []
+# website URL which appears when you type command /version <your plugin name>
+website: https://github.com/wuwendell/MinecraftManhunt
+
+# any commands you implement with your new plugin must be listed here
+commands:
+  hunters:
+    description: configure hunters
+    usage: /hunters [add|remove|clear] {username}
+  runners:
+    description: configure runners
+    usage: /runners [add|remove|clear] {username}
+  start:
+    description: start the manhunt
+    usage: /start
