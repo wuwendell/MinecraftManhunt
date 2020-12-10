@@ -1,0 +1,10 @@
+ # ignore IDE configuration files
+.idea
+*.iml
+
+ # ignore dependencies (only using spigot API)
+/lib
+
+ # ignore compiled output but not the final jar
+ # production folder excluded since it only contains .class output
+/out/production

@@ -1,0 +1,17 @@
+<project name="MinecraftManhunt" default="copy" basedir=".">
+    <description>
+        Default target used to copy output jar to my test server's plugins folder.
+    </description>
+
+    <property name="projectName" value="MinecraftManhunt.jar"/>
+    <property name="testServerPluginsFolder" location="../test-server-1.16/plugins"/>
+
+    <target name="copy" description="copy the output jar to my test server, intended only for post-compilation use">
+        <!--Copy the compiled jar to my test server folder.-->
+        <copyfile src="out/${projectName}" dest="${testServerPluginsFolder}/${projectName}"/>
+    </target>
+
+    <target name="clean" description="clean up only the test server folder, and not the out folder">
+        <delete file="${testServerPluginsFolder}/${projectName}"/>
+    </target>
+</project>
