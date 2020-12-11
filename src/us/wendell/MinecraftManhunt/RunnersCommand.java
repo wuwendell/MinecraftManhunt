@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ public class RunnersCommand implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-        HashSet<Player> runners = plugin.getRunners();
+        Set<Player> runners = plugin.getRunners();
         StringBuilder completionMessage = new StringBuilder();
         if(args.length == 0) return false;
         CommandOptions option;

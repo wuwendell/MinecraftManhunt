@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 
 /**
@@ -41,7 +41,7 @@ public class HuntersCommand implements CommandExecutor {
      */
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-        HashSet<Player> hunters = plugin.getHunters();
+        Set<Player> hunters = plugin.getHunters();
         StringBuilder completionMessage = new StringBuilder();
         if(args.length == 0) return false;
         CommandOptions option;
