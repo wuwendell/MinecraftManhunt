@@ -31,4 +31,15 @@ public class HelperMethods {
         }
         return retList;
     }
+
+    /**
+     * Notify a player that they have either been removed/added as a hunter/runner.
+     * @param p the player to inform
+     * @param removedOrAdded a string, must be "removed" or "added"
+     * @param hunterOrRunner a string, must be "hunter" or "runner"
+     */
+    public static void notifyPlayer(Player p, String removedOrAdded, String hunterOrRunner){
+        p.sendMessage((removedOrAdded.equals("removed") ? ChatColor.GOLD : ChatColor.GREEN)
+                + "You were " + removedOrAdded + " as a " + hunterOrRunner + "!");
+    }
 }
