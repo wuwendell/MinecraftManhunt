@@ -6,7 +6,7 @@ spigot api features!
 
 #### Compilation
 
-I'm using IntelliJ to compile my classes into the jar located in the out folder. 
+I'm using IntelliJ to compile my classes into the jar artifact located in the out folder. 
 One day, I will include the actual javac command used to compile everything.
 
 #### Usage
@@ -15,9 +15,8 @@ Drop the MinecratManhunt.jar file into your plugins folder before you start up a
 
 ###### Commands:
 
-1. `/hunters [add|remove|clear] {username}`
-2. `/runners [add|remove|clear] {username}`
-3. `/start`
+1. `/hunters {add|remove|clear} [usernames ...]`
+2. `/runners {add|remove|clear} [usernames ...]`
 
 #### File Structure
  - `src`: location of the source files in their respective packages

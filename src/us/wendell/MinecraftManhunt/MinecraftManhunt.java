@@ -42,20 +42,7 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
     }
 
     /**
-     * Implements:
-     * -
-     * - /runners [add|remove|clear] {username}
-     * - /start
-     */
-    public boolean onCommand(){
-        //TODO: implement command handling
-        //when adding hunters, give them a compass
-        return true;
-    }
-
-    /**
      * Handle a click by any player.
-     *
      * @param event the click event
      */
     @EventHandler()

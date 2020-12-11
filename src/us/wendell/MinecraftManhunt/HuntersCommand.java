@@ -24,7 +24,7 @@ public class HuntersCommand implements CommandExecutor {
     }
 
     /**
-     * Implements /hunters [add|remove|clear] {username}
+     * Implements /hunters {add|remove|clear} [usernames ...]
      * @param commandSender the sender of the command -- either a Player, CommandBlockSender, or Console
      * @param command what the command being called is.
      * @param label the exact first word of the command
@@ -35,11 +35,14 @@ public class HuntersCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
         switch(CommandOptions.valueOf(args[0])){
             case Add:
-                break;
+                return true;
+
             case Remove:
-                break;
+                return true;
+
             case Clear:
-                break;
+                return true;
+
             default:
                 return false;
         }

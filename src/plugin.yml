@@ -12,6 +12,8 @@ depend: []
 # website URL which appears when you type command /version <your plugin name>
 website: https://github.com/wuwendell/MinecraftManhunt
 
+# other yml tags can be found here: https://www.spigotmc.org/wiki/plugin-yml/
+
 # any commands you implement with your new plugin must be listed here
 commands:
   hunters:
@@ -20,6 +22,3 @@ commands:
   runners:
     description: configure runners
     usage: /runners [add|remove|clear] {username}
-  start:
-    description: start the manhunt
-    usage: /start
