@@ -20,7 +20,7 @@ public class HuntersCommand implements CommandExecutor {
     /**
      * The instance of the plugin which we can use to access hunter data
      */
-    private MinecraftManhunt plugin;
+    private final MinecraftManhunt plugin;
 
     /**
      * Construct a new HuntersCommand which has a reference to the original plugin.
@@ -30,6 +30,7 @@ public class HuntersCommand implements CommandExecutor {
         this.plugin = plugin;
     }
 
+    //TODO: this is tightly coupled, I should refactor adding/removing/clearing/printing logic into plugin class
     /**
      * Implements /hunters {add|remove|clear|see} [usernames ...]
      * @param commandSender the sender of the command -- either a Player, CommandBlockSender, or Console
@@ -60,15 +61,11 @@ public class HuntersCommand implements CommandExecutor {
                         hunters.add(p);
                         numPlayersToAdd++;
                     }else{
-                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE + " is already assigned!\n");
+                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is already assigned!\n");
                     }
                 }
-                if(numPlayersToAdd > 0){
-                    hunters.addAll(playersToAdd);
-                    completionMessage.append(ChatColor.GREEN + "Successfully added ").append(numPlayersToAdd).append(" hunter(s)!");
-                }else{
-                    completionMessage.append(ChatColor.RED + "No hunters were added.");
-                }
+                if(numPlayersToAdd > 0) completionMessage.append(ChatColor.GREEN).append("Successfully added ").append(numPlayersToAdd).append(" hunter(s)!");
+                else completionMessage.append(ChatColor.RED).append("No hunters were added.");
                 break;
             case REMOVE:
                 List<Player> playersToRemove = HelperMethods.getPlayersFromNames(commandSender, args);
@@ -78,14 +75,11 @@ public class HuntersCommand implements CommandExecutor {
                         hunters.remove(p);
                         numPlayersToRemove++;
                     }else{
-                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE + " is not a hunter!\n");
+                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is not a hunter!\n");
                     }
                 }
-                if(numPlayersToRemove > 0){
-                    completionMessage.append(ChatColor.GREEN + "Successfully removed ").append(numPlayersToRemove).append(" hunter(s)!");
-                }else{
-                    completionMessage.append(ChatColor.RED + "No hunters were removed.");
-                }
+                if(numPlayersToRemove > 0) completionMessage.append(ChatColor.GREEN).append("Successfully removed ").append(numPlayersToRemove).append(" hunter(s)!");
+                else completionMessage.append(ChatColor.RED).append("No hunters were removed.");
                 break;
             case CLEAR:
                 hunters.clear();
@@ -93,9 +87,7 @@ public class HuntersCommand implements CommandExecutor {
                 break;
             case SEE:
                 completionMessage.append("The following is the list of hunters:\n");
-                for(Player p : hunters){
-                    completionMessage.append(p.getName()).append('\n');
-                }
+                for(Player p : hunters) completionMessage.append(p.getName()).append('\n');
                 break;
             default:
                 return false;

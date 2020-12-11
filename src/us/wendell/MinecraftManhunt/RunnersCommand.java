@@ -18,7 +18,7 @@ public class RunnersCommand implements CommandExecutor {
     /**
      * The instance of the plugin which we can use to access runner data
      */
-    private MinecraftManhunt plugin;
+    private final MinecraftManhunt plugin;
 
     /**
      * Construct a new RunnersCommand which has a reference to the original plugin.
@@ -28,6 +28,7 @@ public class RunnersCommand implements CommandExecutor {
         this.plugin = plugin;
     }
 
+    //TODO: this is tightly coupled, I should refactor adding/removing/clearing/printing logic into plugin class
     /**
      * Implements /runners {add|remove|clear|see} [usernames ...]
      * @param commandSender the sender of the command -- either a Player, CommandBlockSender, or Console
@@ -57,15 +58,11 @@ public class RunnersCommand implements CommandExecutor {
                         runners.add(p);
                         numPlayersToAdd++;
                     }else{
-                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE + " is already assigned!\n");
+                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is already assigned!\n");
                     }
                 }
-                if(numPlayersToAdd > 0){
-                    runners.addAll(playersToAdd);
-                    completionMessage.append(ChatColor.GREEN + "Successfully added ").append(numPlayersToAdd).append(" runner(s)!");
-                }else{
-                    completionMessage.append(ChatColor.RED + "No runners were added.");
-                }
+                if(numPlayersToAdd > 0) completionMessage.append(ChatColor.GREEN).append("Successfully added ").append(numPlayersToAdd).append(" runner(s)!");
+                else completionMessage.append(ChatColor.RED).append("No runners were added.");
                 break;
             case REMOVE:
                 List<Player> playersToRemove = HelperMethods.getPlayersFromNames(commandSender, args);
@@ -75,14 +72,11 @@ public class RunnersCommand implements CommandExecutor {
                         runners.remove(p);
                         numPlayersToRemove++;
                     }else{
-                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE + " is not a runner!\n");
+                        completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is not a runner!\n");
                     }
                 }
-                if(numPlayersToRemove > 0){
-                    completionMessage.append(ChatColor.GREEN + "Successfully removed ").append(numPlayersToRemove).append(" runner(s)!");
-                }else{
-                    completionMessage.append(ChatColor.RED + "No runners were removed.");
-                }
+                if(numPlayersToRemove > 0) completionMessage.append(ChatColor.GREEN).append("Successfully removed ").append(numPlayersToRemove).append(" runner(s)!");
+                else completionMessage.append(ChatColor.RED).append("No runners were removed.");
                 break;
             case CLEAR:
                 runners.clear();
@@ -90,9 +84,7 @@ public class RunnersCommand implements CommandExecutor {
                 break;
             case SEE:
                 completionMessage.append("The following is the list of runners:\n");
-                for(Player p : runners){
-                    completionMessage.append(p.getName()).append('\n');
-                }
+                for(Player p : runners) completionMessage.append(p.getName()).append('\n');
                 break;
             default:
                 return false;
