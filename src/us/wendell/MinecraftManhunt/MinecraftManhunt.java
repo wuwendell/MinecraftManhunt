@@ -1,13 +1,15 @@
 package us.wendell.MinecraftManhunt;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -85,6 +87,88 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
         if(hunters.contains(player)){
             player.getInventory().addItem(new ItemStack(Material.COMPASS));
         }
+    }
+
+    /**
+     * Set the new player's gamemode to spectator. It should preserve their inventory from any previous session.
+     * @param joinEvent the join event.
+     */
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent joinEvent){
+        joinEvent.getPlayer().setGameMode(GameMode.SPECTATOR);
+    }
+
+    /**
+     * Remove the player from any list, if they were in them.
+     * @param leaveEvent the leave event.
+     */
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent leaveEvent){
+        Player p = leaveEvent.getPlayer();
+        removeHunter(p);
+        removeRunner(p);
+    }
+
+    /**
+     * Add a player to the list of hunters.
+     * <p>
+     *     Additionally teleports them to the closest hunter in the world, if there is one, and sets their
+     *     GameMode to survival. Otherwise, teleports them to their previous spawn.
+     * </p>
+     * @param p the player to be added, assumed to be online.
+     * @return true if the player was successfully added, false if they were already there or failed to add
+     */
+    public boolean addHunter(Player p){
+        //TODO: do this
+        if(!hunters.contains(p)){
+            hunters.add(p);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Add a player to the list of runners.
+     * <p>
+     *     Additionally teleports them to the closest runner in the world, if there is one, and sets their
+     *     GameMode to survival. Otherwise, teleports them to their previous spawn.
+     * </p>
+     * @param p the player to be added, assumed to be online.
+     * @return true if the player was successfully added, false if they were already there or failed to add
+     */
+    public boolean addRunner(Player p){
+        //TODO: do this
+        if(!runners.contains(p)){
+            runners.add(p);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Remove a player from the hunter's list, if they are there.
+     * @param p the player
+     * @return true if successfully removed, false if they were not there
+     */
+    public boolean removeHunter(Player p){
+        if(hunters.contains(p)){
+            hunters.remove(p);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Remove a player from the runner's list, if they are there.
+     * @param p the player
+     * @return true if successfully removed, false if they were not there
+     */
+    public boolean removeRunner(Player p){
+        if(runners.contains(p)){
+            runners.remove(p);
+            return true;
+        }
+        return false;
     }
 
     /**
