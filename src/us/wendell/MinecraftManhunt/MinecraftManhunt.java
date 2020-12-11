@@ -1,18 +1,39 @@
 package us.wendell.MinecraftManhunt;
 
-import org.bukkit.Color;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
 
-public class MinecraftManhunt extends JavaPlugin {
+/**
+ * @author Wendell Wu, December 2020
+ * @version 1.0.1
+ * @since 1.0.1
+ */
+public class MinecraftManhunt extends JavaPlugin implements Listener {
+    //TODO: look at Listener tutorial: https://www.youtube.com/watch?v=a9X0EeXtomY&list=PL65-DKRLvp3Yn7iglPfxKoc7bl0N80XgG&index=5
+    private HashSet<Player> hunters;
+    private HashSet<Player> runners;
 
-    HashSet<Player> hunters, runners;
+    public HashSet<Player> getHunters() {
+        return hunters;
+    }
+    public void setHunters(HashSet<Player> hunters) {
+        this.hunters = hunters;
+    }
+    public HashSet<Player> getRunners() {
+        return runners;
+    }
+    public void setRunners(HashSet<Player> runners) {
+        this.runners = runners;
+    }
 
     /**
      * Setup everything upon startup, restart, or reload.
@@ -21,6 +42,8 @@ public class MinecraftManhunt extends JavaPlugin {
     public void onEnable(){
         hunters = new HashSet<>();
         runners = new HashSet<>();
+        this.getCommand("hunters").setExecutor(new HuntersCommand(this));
+        this.getCommand("runners").setExecutor(new RunnersCommand(this));
     }
 
     /**
@@ -30,17 +53,6 @@ public class MinecraftManhunt extends JavaPlugin {
     public void onDisable(){
         hunters = null;
         runners = null;
-    }
-
-    /**
-     * Implements:
-     * - /hunters [add|remove|clear] {username}
-     * - /runners [add|remove|clear] {username}
-     * - /start
-     */
-    public boolean onCommand(){
-        //TODO: implement command handling
-        return true;
     }
 
     /**
@@ -56,11 +68,20 @@ public class MinecraftManhunt extends JavaPlugin {
             Player closestRunner = closestRunnerToLocation(hunter.getLocation());
             if(closestRunner != null){
                 hunter.setCompassTarget(closestRunner.getLocation());
-                hunter.sendMessage(Color.GREEN + "Now tracking " + closestRunner.getName() + "!");
+                hunter.sendMessage(ChatColor.GREEN + "Now tracking " + closestRunner.getName() + "!");
             }else{
-                hunter.sendMessage(Color.RED + "There are no runners to track!");
+                hunter.sendMessage(ChatColor.RED + "There are no runners to track!");
             }
         }
+    }
+
+    /**
+     * Handle a hunter respawning (we should give them a new compass)
+     * @param event a player respawning event
+     */
+    @EventHandler()
+    public void onHunterRespawn(PlayerRespawnEvent event){
+        //TODO: give new compass to hunter
     }
 
     /**
