@@ -20,13 +20,13 @@ import java.util.HashSet;
  * @since 1.0.1
  */
 public class MinecraftManhunt extends JavaPlugin implements Listener {
-    private HashSet<Player> hunters;
-    private HashSet<Player> runners;
+    private Set<Player> hunters;
+    private Set<Player> runners;
 
-    public HashSet<Player> getHunters() {
+    public Set<Player> getHunters() {
         return hunters;
     }
-    public HashSet<Player> getRunners() {
+    public Set<Player> getRunners() {
         return runners;
     }
 
