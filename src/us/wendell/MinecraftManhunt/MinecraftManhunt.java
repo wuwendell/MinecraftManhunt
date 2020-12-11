@@ -6,7 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -17,11 +19,22 @@ import java.util.HashSet;
  * @since 1.0.1
  */
 public class MinecraftManhunt extends JavaPlugin implements Listener {
-
-    //TODO: Handle hunter death -- give new compass upon respawn when the game is started and remove any compasses
-    //that they drop
     //TODO: look at Listener tutorial: https://www.youtube.com/watch?v=a9X0EeXtomY&list=PL65-DKRLvp3Yn7iglPfxKoc7bl0N80XgG&index=5
-    HashSet<Player> hunters, runners;
+    private HashSet<Player> hunters;
+    private HashSet<Player> runners;
+
+    public HashSet<Player> getHunters() {
+        return hunters;
+    }
+    public void setHunters(HashSet<Player> hunters) {
+        this.hunters = hunters;
+    }
+    public HashSet<Player> getRunners() {
+        return runners;
+    }
+    public void setRunners(HashSet<Player> runners) {
+        this.runners = runners;
+    }
 
     /**
      * Setup everything upon startup, restart, or reload.
@@ -59,6 +72,15 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
                 hunter.sendMessage(Color.RED + "There are no runners to track!");
             }
         }
+    }
+
+    /**
+     * Handle a hunter respawning (we should give them a new compass)
+     * @param event a player respawning event
+     */
+    @EventHandler()
+    public void onHunterRespawn(PlayerRespawnEvent event){
+        //TODO: give new compass to hunter
     }
 
     /**
