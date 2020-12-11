@@ -15,8 +15,8 @@ Drop the MinecratManhunt.jar file into your plugins folder before you start up a
 
 ###### Commands:
 
-1. `/hunters {add|remove|clear} [usernames ...]`
-2. `/runners {add|remove|clear} [usernames ...]`
+1. `/hunters {add|remove|clear|see} [usernames ...]`
+2. `/runners {add|remove|clear|see} [usernames ...]`
 
 #### File Structure
  - `src`: location of the source files in their respective packages

@@ -1,12 +1,11 @@
 package us.wendell.MinecraftManhunt;
 
-import org.bukkit.Color;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +42,8 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
     public void onEnable(){
         hunters = new HashSet<>();
         runners = new HashSet<>();
+        this.getCommand("hunters").setExecutor(new HuntersCommand(this));
+        this.getCommand("runners").setExecutor(new RunnersCommand(this));
     }
 
     /**
@@ -67,9 +68,9 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
             Player closestRunner = closestRunnerToLocation(hunter.getLocation());
             if(closestRunner != null){
                 hunter.setCompassTarget(closestRunner.getLocation());
-                hunter.sendMessage(Color.GREEN + "Now tracking " + closestRunner.getName() + "!");
+                hunter.sendMessage(ChatColor.GREEN + "Now tracking " + closestRunner.getName() + "!");
             }else{
-                hunter.sendMessage(Color.RED + "There are no runners to track!");
+                hunter.sendMessage(ChatColor.RED + "There are no runners to track!");
             }
         }
     }

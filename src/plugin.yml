@@ -18,7 +18,7 @@ website: https://github.com/wuwendell/MinecraftManhunt
 commands:
   hunters:
     description: configure hunters
-    usage: /hunters [add|remove|clear] {username}
+    usage: /hunters {add|remove|clear|see} [usernames ...]
   runners:
     description: configure runners
-    usage: /runners [add|remove|clear] {username}
+    usage: /runners {add|remove|clear|see} [usernames ...]

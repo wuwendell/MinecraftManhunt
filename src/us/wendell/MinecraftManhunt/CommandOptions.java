@@ -6,7 +6,8 @@ package us.wendell.MinecraftManhunt;
  * @since 1.0.1
  */
 public enum CommandOptions {
-    Add,
-    Remove,
-    Clear
+    ADD,
+    REMOVE,
+    CLEAR,
+    SEE
 }
