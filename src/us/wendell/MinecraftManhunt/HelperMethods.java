@@ -19,16 +19,27 @@ public class HelperMethods {
      */
     public static List<Player> getPlayersFromNames(CommandSender sender, String[] names){
         List<Player> retList = new LinkedList<>();
-        for(int i = 0; i < names.length; i++){
-            if(names[i] == null || names[i].isBlank()) continue;
-            Player player = Bukkit.getPlayer(names[i]);
-            if(player != null){
+        for (String name : names) {
+            if (name == null || name.isBlank()) continue;
+            Player player = Bukkit.getPlayer(name);
+            if (player != null) {
                 retList.add(player);
-            }else{
-                sender.sendMessage(ChatColor.RED + "Player " + names[i] + " either does not " +
+            } else {
+                sender.sendMessage(ChatColor.RED + "Player " + name + " either does not " +
                         "exist or is not online!");
             }
         }
         return retList;
+    }
+
+    /**
+     * Notify a player that they have either been removed/added as a hunter/runner.
+     * @param p the player to inform
+     * @param removedOrAdded a string, must be "removed" or "added"
+     * @param hunterOrRunner a string, must be "hunter" or "runner"
+     */
+    public static void notifyPlayer(Player p, String removedOrAdded, String hunterOrRunner){
+        p.sendMessage((removedOrAdded.equals("removed") ? ChatColor.GOLD : ChatColor.GREEN)
+                + "You were " + removedOrAdded + " as a " + hunterOrRunner + "!");
     }
 }

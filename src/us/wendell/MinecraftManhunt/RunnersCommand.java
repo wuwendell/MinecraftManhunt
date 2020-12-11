@@ -56,6 +56,7 @@ public class RunnersCommand implements CommandExecutor {
                 for(Player p : playersToAdd){
                     if(!runners.contains(p) && !plugin.getHunters().contains(p)){
                         runners.add(p);
+                        HelperMethods.notifyPlayer(p, "added", "runner");
                         numPlayersToAdd++;
                     }else{
                         completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is already assigned!\n");
@@ -70,6 +71,7 @@ public class RunnersCommand implements CommandExecutor {
                 for(Player p : playersToRemove){
                     if(runners.contains(p)){
                         runners.remove(p);
+                        HelperMethods.notifyPlayer(p, "removed", "runner");
                         numPlayersToRemove++;
                     }else{
                         completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is not a runner!\n");
@@ -79,6 +81,8 @@ public class RunnersCommand implements CommandExecutor {
                 else completionMessage.append(ChatColor.RED).append("No runners were removed.");
                 break;
             case CLEAR:
+                for(Player p : runners)
+                    HelperMethods.notifyPlayer(p, "removed", "runner");
                 runners.clear();
                 completionMessage.append("Successfully cleared list of runners!");
                 break;

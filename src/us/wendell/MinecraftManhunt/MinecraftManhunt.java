@@ -1,5 +1,6 @@
 package us.wendell.MinecraftManhunt;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -8,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -18,21 +20,14 @@ import java.util.HashSet;
  * @since 1.0.1
  */
 public class MinecraftManhunt extends JavaPlugin implements Listener {
-    //TODO: look at Listener tutorial: https://www.youtube.com/watch?v=a9X0EeXtomY&list=PL65-DKRLvp3Yn7iglPfxKoc7bl0N80XgG&index=5
     private HashSet<Player> hunters;
     private HashSet<Player> runners;
 
     public HashSet<Player> getHunters() {
         return hunters;
     }
-    public void setHunters(HashSet<Player> hunters) {
-        this.hunters = hunters;
-    }
     public HashSet<Player> getRunners() {
         return runners;
-    }
-    public void setRunners(HashSet<Player> runners) {
-        this.runners = runners;
     }
 
     /**
@@ -40,10 +35,14 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
      */
     @Override
     public void onEnable(){
+        //store the hunters and runners in HashSets for quick operations
         hunters = new HashSet<>();
         runners = new HashSet<>();
+        //register the two commands we need
         this.getCommand("hunters").setExecutor(new HuntersCommand(this));
         this.getCommand("runners").setExecutor(new RunnersCommand(this));
+        //register this class as an EventListening class
+        getServer().getPluginManager().registerEvents(this, this);
     }
 
     /**
@@ -59,11 +58,11 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
      * Handle a click by any player.
      * @param event the click event
      */
-    @EventHandler()
+    @EventHandler
     public void onClick(PlayerInteractEvent event){
         Player hunter = event.getPlayer();
         //if the player is a hunter and they clicked a compass
-        if(hunters.contains(hunter) && event.getItem().getType() == Material.COMPASS){
+        if(hunters.contains(hunter) && event.getItem() != null && event.getItem().getType() == Material.COMPASS){
             //try to get the closest player
             Player closestRunner = closestRunnerToLocation(hunter.getLocation());
             if(closestRunner != null){
@@ -79,9 +78,12 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
      * Handle a hunter respawning (we should give them a new compass)
      * @param event a player respawning event
      */
-    @EventHandler()
+    @EventHandler
     public void onHunterRespawn(PlayerRespawnEvent event){
-        //TODO: give new compass to hunter
+        Player player = event.getPlayer();
+        if(hunters.contains(player)){
+            player.getInventory().addItem(new ItemStack(Material.COMPASS));
+        }
     }
 
     /**

@@ -11,9 +11,9 @@ One day, I will include the actual javac command used to compile everything.
 
 #### Usage
 
-Drop the MinecratManhunt.jar file into your plugins folder before you start up a spigot server.
+Drop the MinecraftManhunt.jar file into your plugins folder before you start up a spigot server.
 
-###### Commands:
+###### Commands
 
 1. `/hunters {add|remove|clear|see} [usernames ...]`
 2. `/runners {add|remove|clear|see} [usernames ...]`

@@ -59,6 +59,7 @@ public class HuntersCommand implements CommandExecutor {
                     if(!hunters.contains(p) && !plugin.getRunners().contains(p)){
                         p.getInventory().addItem(new ItemStack(Material.COMPASS));
                         hunters.add(p);
+                        HelperMethods.notifyPlayer(p, "added", "hunter");
                         numPlayersToAdd++;
                     }else{
                         completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is already assigned!\n");
@@ -73,6 +74,7 @@ public class HuntersCommand implements CommandExecutor {
                 for(Player p : playersToRemove){
                     if(hunters.contains(p)){
                         hunters.remove(p);
+                        HelperMethods.notifyPlayer(p, "removed", "hunter");
                         numPlayersToRemove++;
                     }else{
                         completionMessage.append(p.getName()).append(ChatColor.LIGHT_PURPLE).append(" is not a hunter!\n");
@@ -82,6 +84,8 @@ public class HuntersCommand implements CommandExecutor {
                 else completionMessage.append(ChatColor.RED).append("No hunters were removed.");
                 break;
             case CLEAR:
+                for(Player p : hunters)
+                    HelperMethods.notifyPlayer(p, "removed", "hunter");
                 hunters.clear();
                 completionMessage.append("Successfully cleared list of hunters!");
                 break;
