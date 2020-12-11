@@ -19,13 +19,13 @@ public class HelperMethods {
      */
     public static List<Player> getPlayersFromNames(CommandSender sender, String[] names){
         List<Player> retList = new LinkedList<>();
-        for(int i = 0; i < names.length; i++){
-            if(names[i] == null || names[i].isBlank()) continue;
-            Player player = Bukkit.getPlayer(names[i]);
-            if(player != null){
+        for (String name : names) {
+            if (name == null || name.isBlank()) continue;
+            Player player = Bukkit.getPlayer(name);
+            if (player != null) {
                 retList.add(player);
-            }else{
-                sender.sendMessage(ChatColor.RED + "Player " + names[i] + " either does not " +
+            } else {
+                sender.sendMessage(ChatColor.RED + "Player " + name + " either does not " +
                         "exist or is not online!");
             }
         }
