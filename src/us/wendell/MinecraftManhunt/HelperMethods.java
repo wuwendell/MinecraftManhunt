@@ -8,6 +8,11 @@ import org.bukkit.entity.Player;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Wendell Wu, December 2020
+ * @version 1.0.1
+ * @since 1.0.1
+ */
 public class HelperMethods {
     /**
      * When processing commands for adding players to a category, do so here.
