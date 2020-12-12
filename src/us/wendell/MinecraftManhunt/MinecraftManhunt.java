@@ -1,9 +1,6 @@
 package us.wendell.MinecraftManhunt;
 
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -68,8 +66,14 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
         if(hunters.contains(hunter) && event.getItem() != null && event.getItem().getType() == Material.COMPASS){
             //try to get the closest player
             Player closestRunner = closestRunnerToLocation(hunter.getLocation());
-            if(closestRunner != null){
-                hunter.setCompassTarget(closestRunner.getLocation());
+            if(closestRunner != null){ // if we found a player in the same world to track
+                if(hunter.getLocation().getWorld().getEnvironment() == World.Environment.NORMAL) {
+                    hunter.setCompassTarget(closestRunner.getLocation());
+                }else{ // they're in the nether or end, so use lodestone properties
+                    CompassMeta compass = (CompassMeta) event.getItem().getItemMeta(); //TODO: test if this cast is safe
+                    compass.setLodestone(closestRunner.getLocation());
+                    compass.setLodestoneTracked(false);
+                }
                 hunter.sendMessage(ChatColor.GREEN + "Now tracking " + closestRunner.getName() + "!");
             }else{
                 hunter.sendMessage(ChatColor.RED + "There are no runners to track!");
