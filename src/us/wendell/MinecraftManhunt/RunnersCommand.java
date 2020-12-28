@@ -1,13 +1,14 @@
 package us.wendell.MinecraftManhunt;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Wendell Wu, December 2020
@@ -56,6 +57,7 @@ public class RunnersCommand implements CommandExecutor {
                 for(Player p : playersToAdd){
                     if(!runners.contains(p) && !plugin.getHunters().contains(p)){
                         runners.add(p);
+                        p.setGameMode(GameMode.SURVIVAL);
                         HelperMethods.notifyPlayer(p, "added", "runner");
                         numPlayersToAdd++;
                     }else{
@@ -71,6 +73,7 @@ public class RunnersCommand implements CommandExecutor {
                 for(Player p : playersToRemove){
                     if(runners.contains(p)){
                         runners.remove(p);
+                        p.setGameMode(GameMode.SPECTATOR);
                         HelperMethods.notifyPlayer(p, "removed", "runner");
                         numPlayersToRemove++;
                     }else{
@@ -81,8 +84,10 @@ public class RunnersCommand implements CommandExecutor {
                 else completionMessage.append(ChatColor.RED).append("No runners were removed.");
                 break;
             case CLEAR:
-                for(Player p : runners)
+                for(Player p : runners) {
                     HelperMethods.notifyPlayer(p, "removed", "runner");
+                    p.setGameMode(GameMode.SPECTATOR);
+                }
                 runners.clear();
                 completionMessage.append("Successfully cleared list of runners!");
                 break;
