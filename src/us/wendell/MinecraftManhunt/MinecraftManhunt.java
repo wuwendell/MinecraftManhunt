@@ -70,9 +70,10 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
                 if(hunter.getLocation().getWorld().getEnvironment() == World.Environment.NORMAL) {
                     hunter.setCompassTarget(closestRunner.getLocation());
                 }else{ // they're in the nether or end, so use lodestone properties
-                    CompassMeta compass = (CompassMeta) event.getItem().getItemMeta(); //TODO: test if this cast is safe
-                    compass.setLodestone(closestRunner.getLocation());
-                    compass.setLodestoneTracked(false);
+                    CompassMeta compassMetaData = (CompassMeta) event.getItem().getItemMeta();
+                    compassMetaData.setLodestone(closestRunner.getLocation());
+                    compassMetaData.setLodestoneTracked(false);
+                    event.getItem().setItemMeta(compassMetaData);
                 }
                 hunter.sendMessage(ChatColor.GREEN + "Now tracking " + closestRunner.getName() + "!");
             }else{
