@@ -124,7 +124,6 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
      * @return true if the player was successfully added, false if they were already there or failed to add
      */
     public boolean addHunter(Player p){
-        //TODO: do this
         if(!hunters.contains(p)){
             hunters.add(p);
             return true;
@@ -142,7 +141,6 @@ public class MinecraftManhunt extends JavaPlugin implements Listener {
      * @return true if the player was successfully added, false if they were already there or failed to add
      */
     public boolean addRunner(Player p){
-        //TODO: do this
         if(!runners.contains(p)){
             runners.add(p);
             return true;
