@@ -1,4 +1,4 @@
-## MinecraftManhunt
+## Minecraft Manhunt
 
 A copy of features which are found in Dream's manhunt videos. 
 The plugin is just for fun and mostly for practice/getting used to 
